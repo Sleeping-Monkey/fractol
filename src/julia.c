@@ -6,51 +6,41 @@
 /*   By: ssheba <ssheba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 11:45:59 by ssheba            #+#    #+#             */
-/*   Updated: 2019/07/12 13:09:38 by ssheba           ###   ########.fr       */
+/*   Updated: 2019/07/19 11:09:04 by ssheba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "cl.h"
 
-static int	count_n(t_cmpl z, t_cmpl c)
+static void	set_first_params(cl_int *n, t_mlx *win)
 {
-	int n;
-
-	n = 0;
-    while (n < 255 && mod_cmpl(z) <= 2)
-	{
-		z = add_cmpl(mul_cmpl(z, z), c);
-		n++;
-    }
-    return (n);
+	n[0] = 8;
+	n[1] = win->size_x;
+	n[2] = win->size_y;
+	n[3] = win->pos_mouse.c.re;
+	n[4] = win->pos_mouse.c.im;
+	n[5] = win->zoom_left;
+	n[6] = win->zoom_right;
+	n[7] = win->translation.c.re;
+	n[8] = win->translation.c.im;
 }
 
-
-void		julia(t_mlx *win, t_point *pos)
+void		julia(t_mlx *win)
 {
-	t_point		z0;
-	t_point		z;
-	int			y;
-	int			x;
-	int			n;
+	size_t	lenth;
+	cl_int	*n;
 
-//printf("julia: \n");
-	z0.c = set_cmpl(pos->c.re / win->size_x, pos->c.im / win->size_y);
-	y = -1;
-	while (++y < (int)win->size_y)
+	errno = 0;
+	lenth = win->size_y * win->size_x + 9;
+	if (!(n = (cl_int *)malloc(sizeof(cl_int) * lenth)))
 	{
-		x = -1;
-		while (++x < (int)win->size_x)
-		{
-			z.c = set_cmpl(-2.0L + 4.0L * (x / (double)win->size_x), \
-			-2.0L + 4.0L * (y / (double)win->size_y));
-			n = count_n(z.c, z0.c);
-//			printf("(%Lf, %Lf) - %d\n", z.c.re, z.c.im, n);
-			z.color = COLOR(n, n * n * n, n * n);
-			z.c.re = x;
-			z.c.im = y;
-			set_point(&z, &win->img);
-		}
+		perror("fractol");
+		finish(win);
 	}
-//printf("finish julia\n");
+	ft_bzero((void *)n, sizeof(cl_int) * lenth);
+	set_first_params(n, win);
+	init_cl(win, n, lenth);
+	set_color(win, n, lenth);
+	free(n);
 }

@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandel.c                                           :+:      :+:    :+:   */
+/*   fractal.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssheba <ssheba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/10 17:53:29 by ssheba            #+#    #+#             */
-/*   Updated: 2019/07/19 11:20:29 by ssheba           ###   ########.fr       */
+/*   Created: 2019/07/18 10:59:31 by ssheba            #+#    #+#             */
+/*   Updated: 2019/07/19 11:09:12 by ssheba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
 #include "cl.h"
 
 static void	set_first_params(cl_int *n, t_mlx *win)
 {
-	n[0] = 6;
+	n[0] = 8;
 	n[1] = win->size_x;
 	n[2] = win->size_y;
-	n[3] = win->translation.c.re;
-	n[4] = win->translation.c.im;
+	n[3] = win->pos_mouse.c.re;
+	n[4] = win->pos_mouse.c.im;
 	n[5] = win->zoom_left;
 	n[6] = win->zoom_right;
+	n[7] = win->translation.c.re;
+	n[8] = win->translation.c.im;
 }
 
-void		mandel(t_mlx *win)
+void		fractal(t_mlx *win)
 {
 	size_t	lenth;
 	cl_int	*n;
 
 	errno = 0;
-	lenth = win->size_y * win->size_x + 7;
+	lenth = win->size_y * win->size_x + 9;
 	if (!(n = (cl_int *)malloc(sizeof(cl_int) * lenth)))
 	{
 		perror("fractol");

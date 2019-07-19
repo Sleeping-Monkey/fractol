@@ -6,14 +6,14 @@
 /*   By: ssheba <ssheba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 12:06:02 by ssheba            #+#    #+#             */
-/*   Updated: 2019/07/12 12:04:45 by ssheba           ###   ########.fr       */
+/*   Updated: 2019/07/19 11:07:17 by ssheba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	if (argc != 2)
 	{

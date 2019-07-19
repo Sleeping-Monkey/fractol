@@ -10,12 +10,12 @@ __kernel void mandel(__global int* tab)
 	{
 		x = (gid - tab[0] - 1) % tab[1] + tab[3];
 		y = (gid - tab[0] - 1) / tab[1] + tab[4];
-		z_re = -1.7433419053321 - 0.00000000374 + x * 0.00000000374 * 2.0 / tab[1];
-		z_im = 0.0000907687489 - 0.00000000374 + y * 0.00000000374 * 2.0 / tab[2];
+		z_re = -2.0 + tab[5] / 1000000.0 + x * (2.0 - (tab[5]) / 1000000.0) * 2.0 / tab[1];
+		z_im = -2.0 + tab[5] / 1000000.0 + y * (2.0 - (tab[5]) / 1000000.0) * 2.0 / tab[2];
 		z0_im = z_im;
 		z0_re = z_re;
 		n = 0;
-		while (n < 255 && (z_re * z_re + z_im * z_im) < 4)
+		while (n < 250 && (z_re * z_re + z_im * z_im) < 4)
 		{
 			tmp = z_re * z_re - z_im * z_im;
 			z_im = z_re * z_im + z_im * z_re;

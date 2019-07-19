@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   reset_view.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssheba <ssheba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/10 18:22:59 by ssheba            #+#    #+#             */
-/*   Updated: 2019/07/17 12:06:25 by ssheba           ###   ########.fr       */
+/*   Created: 2019/07/17 15:39:24 by ssheba            #+#    #+#             */
+/*   Updated: 2019/07/19 11:07:05 by ssheba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	fill_win(t_mlx *win, t_color *color)
+void	reset_view(t_mlx *win)
 {
-	size_t	i;
-	int		c;
-
-	i = win->img.size_x * win->img.size_y;
-	c = (int)((unsigned)((color->r << 8u) + color->g) << 8u) + color->b;
-	while (i--)
-		win->img.pic[i] = c;
-}
-
-void	draw(t_mlx *win)
-{
-	fill_win(win, &COLOR(255, 255, 255));
-	set_img(win);
-	mlx_put_image_to_window(win->mlx, win->win, win->img.img, 0, 0);
+	win->zoom_left = 0;
+	win->zoom_right = 0;
+	win->translation.c = set_cmpl(0, 0);
+	draw(win);
 }

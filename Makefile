@@ -6,7 +6,7 @@
 #    By: ssheba <ssheba@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/10 10:37:57 by ssheba            #+#    #+#              #
-#    Updated: 2019/07/15 16:26:31 by ssheba           ###   ########.fr        #
+#    Updated: 2019/07/18 11:09:22 by ssheba           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ LIB_DIR		=	./libft
 
 SRC_FILES	=	main.c set_cmpl.c mod_cmpl.c add_cmpl.c mul_cmpl.c \
 				start.c hooks.c finish.c draw.c mandel.c set_img.c \
-				set_point.c julia.c create_cl.c del_cl.c
+				set_point.c julia.c create_cl.c del_cl.c init_cl.c \
+				reset_view.c set_color.c fractal.c
 INC_FILES	=	cmpl.h fractol.h cl.h
 OBJ_FILES	=	$(SRC_FILES:.c=.o)
 

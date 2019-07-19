@@ -6,7 +6,7 @@
 /*   By: ssheba <ssheba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 10:35:02 by ssheba            #+#    #+#             */
-/*   Updated: 2019/07/15 15:03:44 by ssheba           ###   ########.fr       */
+/*   Updated: 2019/07/18 11:14:22 by ssheba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,19 @@
 # include "mlx.h"
 # include "libft.h"
 # include "cmpl.h"
+# include "cl.h"
 
 # define KEY_ESC 53
-# define WIN_X	1000
+# define KEY_UP 126
+# define KEY_DOWN 125
+# define KEY_RIGHT 124
+# define KEY_LEFT 123
+# define KEY_1 18
+# define KEY_2 19
+# define KEY_3 20
+# define WIN_X	2000
 # define WIN_Y	1300
-# define USG_MSG	"./fractol [mandelbrot \\ julia]\n"
+# define USG_MSG	"./fractol [mandelbrot \\ julia \\ fractal]\n"
 
 typedef struct	s_color
 {
@@ -57,8 +65,16 @@ typedef	struct	s_img
 typedef enum	e_type
 {
 	MANDEL = 1,
-	JULIA = 2
-}				t_type;	
+	JULIA = 2,
+	FRACTAL = 3
+}				t_type;
+
+typedef enum	e_spec
+{
+	GRAY = 1,
+	PSY = 2,
+	OTHER = 3
+}				t_spec;
 
 typedef struct	s_mlx
 {
@@ -67,21 +83,34 @@ typedef struct	s_mlx
 	unsigned	size_x;
 	unsigned	size_y;
 	t_type		type;
+	t_spec		spec;
 	t_img		img;
+	t_point		translation;
+	t_point		pos_mouse;
+	cl_int		zoom_left;
+	cl_int		zoom_right;
 }				t_mlx;
 
 void			start(char *type);
 
 int				key_hook(int k, t_mlx *win);
 int				mouse_hook(int button, int x, int y, t_mlx *win);
+int				mouse_move(int x, int y, t_mlx *win);
 
 void			set_point(t_point *pos, t_img *img);
-void			set_img(t_mlx *win, t_point *pos);
-void			draw(t_mlx *win, t_point *pos);
+void			set_img(t_mlx *win);
+void			reset_view(t_mlx *win);
+void			draw(t_mlx *win);
 
-void			mandel(t_mlx *win, t_point *pos);
-void			julia(t_mlx *win, t_point *pos);
+void			set_color(t_mlx *win, cl_int *n, size_t lenth);
+
+void			mandel(t_mlx *win);
+void			julia(t_mlx *win);
+void			fractal(t_mlx *win);
 
 int				finish(t_mlx *win);
+void			err_finish(t_mlx *win, t_cl **cl, cl_mem *mem);
+
+void			init_cl(t_mlx *win, cl_int *n, size_t size);
 
 #endif
